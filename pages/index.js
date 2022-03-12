@@ -5,11 +5,13 @@ import { Divider, Header, Loader } from "semantic-ui-react";
 import ItemList from "../src/component/ItemList";
 import styles from "../styles/Home.module.css";
 import LocalSelect from "../src/component/LocalSelect";
+import Mapview from "../src/component/map/Mapview";
 
 export default function Home({ list }) {
   return (
     <div>
       <LocalSelect />
+      <Mapview />
       {/* <Head>
         <title>FISH | DATA</title>
       </Head> */}
