@@ -4,17 +4,16 @@ import { useEffect, useState } from "react";
 import { Divider, Header, Loader } from "semantic-ui-react";
 import ItemList from "../src/component/ItemList";
 import styles from "../styles/Home.module.css";
-import localSelect from "../src/component/LocalSelect";
+import LocalSelect from "../src/component/LocalSelect";
 
 export default function Home({ list }) {
-  console.log("props", list);
   return (
     <div>
+      <LocalSelect />
       {/* <Head>
         <title>FISH | DATA</title>
       </Head> */}
-      <localSelect />
-      {list.result.data.water_temp}
+
       <>
         {/* <Header as="h3" style={{ paddingTop: 40 }}></Header> */}
         {/* <Divider /> */}
