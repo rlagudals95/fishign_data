@@ -10,7 +10,7 @@ import Mapview from "../src/component/map/Mapview";
 export default function Home({ list }) {
   return (
     <div>
-      <LocalSelect />
+      {/* <LocalSelect /> */}
       <Mapview />
       {/* <Head>
         <title>FISH | DATA</title>
