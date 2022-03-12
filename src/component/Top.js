@@ -1,5 +1,6 @@
-import { Header } from "semantic-ui-react";
+import { Divider, Header, Loader } from "semantic-ui-react";
 import Gnb from "./Gnb";
+import LocalSelect from "./LocalSelect";
 
 export default function Top() {
   return (
@@ -12,9 +13,12 @@ export default function Top() {
             style={{ display: "block", width: 80 }}
           />
         </div>
-        <Header as="h1">코딩앙마</Header>
+        <Header as="h1">Fish</Header>
       </div>
-      <Gnb />
+      <Divider />
+
+      <LocalSelect />
+      {/* <Gnb /> */}
     </div>
   );
 }

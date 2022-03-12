@@ -4,25 +4,26 @@ import { useEffect, useState } from "react";
 import { Divider, Header, Loader } from "semantic-ui-react";
 import ItemList from "../src/component/ItemList";
 import styles from "../styles/Home.module.css";
+import localSelect from "../src/component/LocalSelect";
 
 export default function Home({ list }) {
+  console.log("props", list);
   return (
     <div>
-      <Head>
-        <title>HOME | 코딩앙마</title>
-      </Head>
-
+      {/* <Head>
+        <title>FISH | DATA</title>
+      </Head> */}
+      <localSelect />
+      {list.result.data.water_temp}
       <>
-        <Header as="h3" style={{ paddingTop: 40 }}>
-          베스트 상품
-        </Header>
-        <Divider />
-        <ItemList list={list.slice(0, 9)} />
-        <Header as="h3" style={{ paddingTop: 40 }}>
+        {/* <Header as="h3" style={{ paddingTop: 40 }}></Header> */}
+        {/* <Divider /> */}
+        {/* <ItemList list={list.slice(0, 9)} /> */}
+        {/* <Header as="h3" style={{ paddingTop: 40 }}>
           신상품
         </Header>
         <Divider />
-        <ItemList list={list.slice(9)} />
+        <ItemList list={list.slice(9)} /> */}
       </>
     </div>
   );
@@ -30,10 +31,11 @@ export default function Home({ list }) {
 
 // 정적 생성
 export async function getStaticProps(context) {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const apiUrl =
+    "http://www.khoa.go.kr/api/oceangrid/tideObsRecent/search.do?ServiceKey=U4/SimipSctGPnto/1vw==&ObsCode=DT_0004&ResultType=json";
   const res = await Axios.get(apiUrl);
   const data = res.data;
-
+  console.log(data);
   return {
     props: {
       list: data,
