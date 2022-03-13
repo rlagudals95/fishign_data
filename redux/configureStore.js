@@ -1,11 +1,28 @@
+import { applyMiddleware,combineReducers, createStore, compose } from "redux";
 import { createWrapper } from "next-redux-wrapper";
-import { createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import sea from "./modules/sea";
 
-// 1. 스토어를 생성하는 makeStore 함수를 정의
-const makeStore = (context) => createStore(reducer);
+const configureStore = () => {
+  const middlewares = [thunk.withExtraArgument()];
 
-// 2. next-redux-wrapper에서 제공하는 createWrapper정의
-export const wrapper = createWrappe(makeStore, { debug: true });
+  const rootReducer = combineReducers({
+    sea,
+  });
+
+
+  const enhancer =
+    process.env.NODE_ENV === "production"
+      ? compose(applyMiddleware(...middlewares))
+      : composeWithDevTools(applyMiddleware(...middlewares));
+  const store = createStore(rootReducer, enhancer);
+  return store;
+};
+
+const wrapper = createWrapper(configureStore, {
+  debug: process.env.NODE_ENV !== "production"
+});
 
 export default wrapper;
 
@@ -48,5 +65,4 @@ export default wrapper;
 //   debug: process.env.NODE_ENV === "development,",
 // });
 
-// export default wrapper.withRedux(Nodebird);
 // //export default store();
