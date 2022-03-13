@@ -10,7 +10,7 @@ const SET_SEA_DATA = "SET_SEA_DATA";
 
 // 초기 State를 정의합니다.
 const initialState = {
-  seaData: null,
+  seaData: "바다데이터",
 };
 
 // 미들웨어

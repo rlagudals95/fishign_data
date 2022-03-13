@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux"
 import { locals } from "../../../share/Data";
 import axios from "axios";
 
 function Map({ latitude, longitude }) {
+
+  const seaData = useSelector((state) => state.sea.seaData);
+
   const [loading, setLoading] = useState(false);
   latitude = 33.545;
   longitude = 126.589;
@@ -45,6 +49,7 @@ function Map({ latitude, longitude }) {
   }
 
   useEffect(() => {
+    console.log("리덕스 데이터 ::",seaData)
     const mapScript = document.createElement("script");
 
     mapScript.async = true;
@@ -84,10 +89,16 @@ function Map({ latitude, longitude }) {
             image: markerImage, // 마커 이미지
             code: locals[i].osb_no,
           });
-
+          
+          let content = 
+          '<div class="customoverlay">' +
+          '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+          '    <span class="title">'+ locals[i].name +'</span>' +
+          '  </a>' +
+          '</div>';
           // 마커에 표시할 인포윈도우를 생성합니다
           var infowindow = new kakao.maps.InfoWindow({
-            content: locals[i].name, // 인포윈도우에 표시할 내용
+            content: content, // 인포윈도우에 표시할 내용
           });
 
           kakao.maps.event.addListener(
@@ -118,7 +129,7 @@ function Map({ latitude, longitude }) {
     return () => mapScript.removeEventListener("load", onLoadKakaoMap);
   }, [latitude, longitude, loading]);
 
-  return <MapContainer id="map" />;
+  return <><MapContainer id="map" /></>;
 }
 
 const MapContainer = styled.div`
