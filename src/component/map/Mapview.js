@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { locals } from "../../../share/Data";
+import axios from "axios";
 
 function Map({ latitude, longitude }) {
   const [loading, setLoading] = useState(false);
@@ -23,8 +24,24 @@ function Map({ latitude, longitude }) {
   }
 
   // 인포윈도우를 닫는 클로저를 만드는 함수입니다
-  function makeClickListener() {
-    console.log("클릭한 것 : ", this);
+  function getData(obs_no) {
+    console.log("관측소 번호 : ", obs_no);
+    obs_no = "06YME5";
+    console.log(
+      "요청 api :",
+      `http://www.khoa.go.kr/api/oceangrid/DataType/search.do?ServiceKey=U4/SimipSctGPnto/1vw==&ObsCode=${obs_no}&ResultType=json`
+    );
+    axios
+      .get(
+        `http://www.khoa.go.kr/api/oceangrid/tideObsRecent/search.do?ServiceKey=U4/SimipSctGPnto/1vw==&ObsCode=${obs_no}&ResultType=json`
+      )
+      .then((res) => {
+        if (!res.data.result.error) alert(res);
+        console.log("조류 정보 : ", res);
+      })
+      .catch((err) => {
+        console.log("정보 조회 실패 :", err);
+      });
   }
 
   useEffect(() => {
@@ -63,7 +80,7 @@ function Map({ latitude, longitude }) {
           var marker = new kakao.maps.Marker({
             map: map, // 마커를 표시할 지도
             position: locals[i].latlng, // 마커를 표시할 위치
-            title: locals[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+            title: locals[i].name + "," + locals[i].osb_no, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
             image: markerImage, // 마커 이미지
             code: locals[i].osb_no,
           });
@@ -85,7 +102,8 @@ function Map({ latitude, longitude }) {
           );
 
           kakao.maps.event.addListener(marker, "click", function () {
-            console.log(this);
+            let osb_no = this.Gb.split(",")[1];
+            getData(osb_no);
           });
         }
 
@@ -104,7 +122,7 @@ function Map({ latitude, longitude }) {
 }
 
 const MapContainer = styled.div`
-  aspect-ratio: 300 / 450;
+  aspect-ratio: 100 / 100;
 `;
 
 export default Map;
