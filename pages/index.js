@@ -6,10 +6,12 @@ import ItemList from "../src/component/ItemList";
 import styles from "../styles/Home.module.css";
 import LocalSelect from "../src/component/LocalSelect";
 import Mapview from "../src/component/map/Mapview";
+import SearchBar from "../src/component/element/SearchBar"
 
 export default function Home({ list }) {
   return (
     <div>
+      <SearchBar/>
       {/* <LocalSelect /> */}
       <Mapview />
       {/* <Head>
