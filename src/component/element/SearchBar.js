@@ -1,20 +1,22 @@
-import React from 'react'
-import { Icon, Input } from 'semantic-ui-react'
-import styled from "styled-components"
-import { useSelector } from 'react-redux'
+import React from "react";
+import { Icon, Input } from "semantic-ui-react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-//const searchData = useSelector((state) => state.sea.searchData);
+function SearchBar() {
+  const searchData = useSelector((state) => state.sea.searchData);
 
-const SearchBar = () => (
-  <SearchContainer>
-    <Input icon placeholder='Search...'>
-      <input  />
-      <Icon name='search' />
-    </Input>
-  </SearchContainer>
-)
+  return (
+    <SearchContainer>
+      <Input icon placeholder="Search...">
+        <input value={searchData} />
+        <Icon name="search" />
+      </Input>
+    </SearchContainer>
+  );
+}
 
-export default SearchBar
+export default SearchBar;
 
 const SearchContainer = styled.div`
     position : fixed;
